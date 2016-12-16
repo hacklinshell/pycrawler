@@ -29,15 +29,16 @@ let Modules = function() {
 Modules.prototype.getCollections = function() {
     let self = this;
     let all_collections = {};
-    _.each(_.key(self.modules), function(v, k) {
+    _.each(_.keys(self.modules), function(v, k) {
         let collections = self.modules[v].models();
         _.each(collections, function(v, k) {
             all_collections.push(v);
-        })
-    })
+        });
+    });
+    return all_collections;
 };
-
 Modules.prototype.getModules = function() {
     return this.modules;
 };
+
 module.exports = Modules;

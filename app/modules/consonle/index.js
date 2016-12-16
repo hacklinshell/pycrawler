@@ -30,4 +30,19 @@ Module.prototype.routers = function() {
     }
     return router.middleware();
 };
+//ORM 定义
+Module.prototype.models = function() {
+    let collections = [];
+    let modelsDir = path.join(__dirname, 'models');
+    if (fs.existsSync(modelsDir)) {
+        let files = fs.readdirSync(modelsDir);
+        _.each(files, function(v, k) {
+            if (v.lastIndexOf('VO.js')) {
+                let model = require(path.join(modelsDir, v));
+                collections.push(model);
+            }
+        });
+    }
+    return collections;
+}
 module.exports = Module;

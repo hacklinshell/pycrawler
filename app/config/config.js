@@ -13,10 +13,9 @@ let config = {
     },
     database: {
         mongo: {
-            url: 'mongodb://127.0.0.1:27017/my_projec'，
+            url: 'mongodb://127.0.0.1:27017/my_projec',
             poolSize: 5,
-        }
-    };
-
-    module.exports = config
-}
+        },
+    }
+};
+module.exports = config

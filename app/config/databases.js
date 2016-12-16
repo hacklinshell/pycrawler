@@ -10,7 +10,7 @@ let orm_settings = {
     },
     connections: { //具体适配器的配置
         mongo: _.defaults(_.clone(config.database.mongo), {
-            adapters: 'mongo',
+            adapter: 'mongo',
             auto_reconnect: true,
             reconnectInterval: 1000,
             reconnectTries: 99999999,
@@ -30,9 +30,8 @@ module.exports = function(collections) {
         orm.loadCollection(v);
     });
     return {
-        initialize: function(err, cb) {
-            if (err) throw err;
-            orm.initialize(orm_settings, cb)
+        initialize: function(cb) {
+            orm.initialize(orm_settings, cb);
         }
     };
 }
