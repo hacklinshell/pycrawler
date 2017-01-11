@@ -64,7 +64,7 @@ _.each(_.keys(m), function(v, k) {
 });
 
 app.use(mount('/', function*() {
-    this.body = 'projects init'
+    this.body = 'cpcrawler init '
 }));
 database.initialize(function(err, models) {
     if (err) {
