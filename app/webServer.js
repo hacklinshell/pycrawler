@@ -5,7 +5,8 @@ const koa = require('koa');
 const path = require('path');
 const serve = require('koa-static'); //处理静态资源文件
 const mount = require('koa-mount'); //挂载一个中间件或者koa应用作为路由
-const favicon = require('koa-favicon') //网站小图标处理服务的koa中间件
+const favicon = require('koa-favicon'); //网站小图标处理服务的koa中间件
+const xtpl = require('xtpl/lib/koa');
 
 const bodyParser = require('koa-bodyparser') //body 解析 可以设置解析的格式，编码方式，解析的大小限制，以及错误处理等
 const bodyXmlParser = require('koa-xml-body').default //解析xml body请求
@@ -33,6 +34,12 @@ locale(app, 'zh-cn');
 //错误处理
 app.on('error', function(err) {
     logger.error('app error', err, err.stack);
+});
+
+//模板引擎使用xtemplate
+app = xtpl(app, {
+    views: path.join(__dirname, '../public/html'),
+    extname: 'html'
 });
 
 //配置app实例属性
@@ -66,6 +73,7 @@ _.each(_.keys(m), function(v, k) {
 app.use(mount('/', function*() {
     this.body = 'cpcrawler init '
 }));
+
 database.initialize(function(err, models) {
     if (err) {
         throw err;
