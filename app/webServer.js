@@ -70,6 +70,9 @@ _.each(_.keys(m), function(v, k) {
     app.use(mount('/' + v, m[v].routers()));
 });
 
+let consoleMainController = require('./modules/consonle/controller/MainController');
+app.use(mount('/', consoleMainController.indexAction))
+
 app.use(mount('/', function*() {
     this.body = 'cpcrawler init '
 }));
