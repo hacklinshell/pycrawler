@@ -11,6 +11,19 @@ let config = {
         name: "cpcrawler",
         keys: ["keys"]
     },
+    session: {
+        redis: {
+            host: "127.0.0.1",
+            port: 6379,
+            options: {
+                dropBufferSupport: true,
+            },
+            dropBufferSupport: true,
+            // "password":""
+        },
+        prefix: 'uwifi:session',
+        ttl: 3600 * 1000 //单位毫秒
+    },
     database: {
         mongo: {
             url: 'mongodb://127.0.0.1:27017/cpcrawler',
