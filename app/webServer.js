@@ -68,7 +68,7 @@ app.use(session);
 //输出公共变量
 app.use(function*(next) {
     this.config = config;
-    this.models = this.app.modules;
+    this.models = this.app.models;
     this.logger = logger;
     this.redis = redisClient;
     this.cache = redisCache;
@@ -82,11 +82,12 @@ app.use(function*(next) {
 //挂载模块 路由
 var m = modules.getModules();
 _.each(_.keys(m), function(v, k) {
+    console.log(v + '/' + m[v])
     app.use(mount('/' + v, m[v].routers()));
 });
 
-let consoleMainController = require('./modules/consonle/controller/MainController');
-app.use(mount('/', consoleMainController.indexAction))
+// let consoleMainController = require('./modules/console/controllers/MainController');
+// app.use(mount('/', consoleMainController.indexAction))
 
 app.use(mount('/', function*() {
     this.body = 'cpcrawler init '

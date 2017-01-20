@@ -9,24 +9,30 @@ let Module = function() {}
 //定义路由
 Module.prototype.routers = function() {
     let router = new Router();
-    let controllerDir = path.join(__dirname, 'controller');
+    //遍历目录
+    let controllerDir = path.join(__dirname, 'controllers');
+    console.log(controllerDir)
     if (fs.existsSync(controllerDir)) {
         let files = fs.readdirSync(controllerDir);
         _.each(files, function(v, k) {
-            let controller = require(path.join(controllerDir, v));
             let controllerName = v.replace('Controller.js', '');
+            let controller = require(path.join(controllerDir, v));
             let actions = _.keys(controller);
+            console.log(controllerName)
             controllerName = controllerName.toLowerCase();
             _.each(actions, function(v, k) {
                 if (v.lastIndexOf('Action')) {
                     let actionName = v.replace('Action', '');
-                    if (controllerName == 'console') {
+                    console.log(actionName)
+                    if (controllerName == 'consoles') {
+                        console.log(controllerName + '/' + actionName)
                         router.all('/' + controllerName + '/' + actionName, controller[v])
                     }
                 }
             })
         })
         router.all('/', require(path.join(controllerDir, 'MainController'))['indexAction']);
+        router.all('/main', require(path.join(controllerDir, 'MainController'))['indexAction'])
     }
     return router.middleware();
 };
